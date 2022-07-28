@@ -3,6 +3,7 @@ import 'custom_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+// ignore: must_be_immutable
 class AddFolderWidget extends StatelessWidget {
   final auth = FirebaseAuth.instance;
   final firestore = FirebaseFirestore.instance;
@@ -10,18 +11,13 @@ class AddFolderWidget extends StatelessWidget {
   late String title;
   late String desc;
 
-  Future<void> addFolderFirebase(
-      String titleOfFolder, String folderDescription) async {
+  Future<void> addFolderFirebase(String titleOfFolder, String folderDescription) async {
     if (auth.currentUser != null) {
-      await firestore
-          .collection('${auth.currentUser?.email}/folderDoc/Folders')
-          .add({
+      await firestore.collection('${auth.currentUser?.email}/folderDoc/Folders').add({
         'Title of Folder': titleOfFolder,
         'Description of Folder': folderDescription,
       });
-      print(firestore
-          .collection('${auth.currentUser?.email}/folderDoc/Folders')
-          .doc());
+      print(firestore.collection('${auth.currentUser?.email}/folderDoc/Folders').doc());
     } else {
       print('user not signed in');
     }
@@ -31,6 +27,7 @@ class AddFolderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
+        color: Colors.blue,
         padding: EdgeInsets.only(
           top: 20,
           bottom: MediaQuery.of(context).viewInsets.bottom,

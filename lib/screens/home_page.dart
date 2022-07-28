@@ -3,6 +3,7 @@ import 'package:undo_test/components/add_folder_wigdet.dart';
 import 'package:undo_test/components/folder_stream.dart';
 import 'package:undo_test/components/top_config_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:undo_test/components/folder_widget.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -33,8 +34,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: const EdgeInsets.only(
-            top: 10.0, left: 24.0, right: 24.0, bottom: 0.0),
+        padding: const EdgeInsets.only(top: 10.0, left: 24.0, right: 24.0, bottom: 0.0),
         child: Column(
           children: [
             CustomTopBar(
@@ -59,11 +59,28 @@ class _HomeState extends State<Home> {
                     });
               },
             ),
-            isUserLoggedIn
-                ? Expanded(child: FolderStream())
-                : const Text('Log in to create a folder.'),
+            isUserLoggedIn ? ArtificialFolders() : const Text('Log in to create a folder.'),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ArtificialFolders extends StatelessWidget {
+  const ArtificialFolders({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: Column(
+        children: const [
+          CustomFolder(title: "Folder 1", docId: "1"),
+          CustomFolder(title: "Folder 2", docId: "2"),
+          CustomFolder(title: "Folder 3", docId: "3"),
+          CustomFolder(title: "Folder 4", docId: "4"),
+        ],
       ),
     );
   }
